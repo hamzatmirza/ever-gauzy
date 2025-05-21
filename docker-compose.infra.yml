@@ -15,8 +15,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./.deploy/db/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
-    ports:
-      - '5432:5432'
+    #ports:
+    #  - '5432:5432'
     networks:
       - overlay
 
@@ -30,18 +30,18 @@ services:
       # - SELF_TRACING_ENABLED=true
       # Uncomment to increase heap size
       # - JAVA_OPTS=-Xms128m -Xmx128m -XX:+ExitOnOutOfMemoryError
-    ports:
+    #ports:
       # Port used for the Zipkin UI and HTTP Api
-      - 9411:9411
+     # - 9411:9411
     networks:
       - overlay
 
   cube:
     image: cubejs/cube:latest
     container_name: cube
-    ports:
-      - '4000:4000' # Cube Playground
-      - '5430:5430' # Port for Cube SQL
+    #ports:
+      #- '4000:4000' # Cube Playground
+      #- '5430:5430' # Port for Cube SQL
     environment:
       CUBEJS_DEV_MODE: 'true'
       CUBEJS_DB_TYPE: postgres
@@ -86,8 +86,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - jitsu_workspace:/home/eventnative/data/airbyte
     restart: always
-    ports:
-      - '8000:8000'
+    #ports:
+    #  - '8000:8000'
     networks:
       - overlay
 
@@ -113,20 +113,20 @@ services:
         hard: 65536
     volumes:
       - opensearch-data:/usr/share/opensearch/data
-    ports:
-      - 9200:9200
-      - 9300:9300
-      - 9600:9600
+    #ports:
+    #  - 9200:9200
+    #  - 9300:9300
+    #  - 9600:9600
     networks:
       - overlay
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest
     container_name: opensearch-dashboards
-    ports:
-      - 5601:5601
-    expose:
-      - '5601'
+    #ports:
+    #  - 5601:5601
+    #expose:
+    #  - '5601'
     environment:
       OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
     networks:
@@ -136,8 +136,8 @@ services:
   dejavu:
     image: appbaseio/dejavu:3.8.3
     container_name: dejavu
-    ports:
-      - '1358:1358'
+    #ports:
+    #  - '1358:1358'
     links:
       - opensearch
     networks:
@@ -152,8 +152,8 @@ services:
       test: ['CMD-SHELL', 'redis-cli -h localhost -p 6379 PING']
       interval: 1s
       timeout: 30s
-    ports:
-      - '6379'
+    #ports:
+    #  - '6379'
     volumes:
       - ./.deploy/redis/data:/data
     networks:
@@ -168,8 +168,8 @@ services:
       test: ['CMD-SHELL', 'redis-cli -h localhost -p 6380 PING']
       interval: 1s
       timeout: 30s
-    ports:
-      - '6380'
+    #ports:
+    #  - '6380'
     volumes:
       - ./.deploy/redis/jitsu_users_recognition/data:/data
       - ./.deploy/redis/jitsu_users_recognition/redis.conf:/usr/local/etc/redis/redis.conf
@@ -191,9 +191,9 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    ports:
-      - 9000:9000
-      - 9001:9001
+    #ports:
+    #  - 9000:9000
+    #  - 9001:9001
     networks:
       - overlay
 
@@ -234,8 +234,8 @@ services:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASS:-gauzy_password}
       PGWEB_DATABASE_URL: postgres://${DB_USER:-postgres}:${DB_PASS:-gauzy_password}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-gauzy}?sslmode=disable
-    ports:
-      - '8081:8081'
+    #ports:
+    #  - '8081:8081'
     networks:
       - overlay
 
