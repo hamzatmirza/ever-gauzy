@@ -77,8 +77,8 @@ services:
     # volumes:
     # - webapp_node_modules:/srv/gauzy/node_modules
     # - api_node_modules:/srv/gauzy/apps/api/node_modules
-    ports:
-      - '3000:${API_PORT:-3000}'
+    #ports:
+    #  - '3000:${API_PORT:-3000}'
     networks:
       - overlay
 
@@ -139,7 +139,7 @@ services:
         condition: service_started
     # volumes:
     # - webapp_node_modules:/srv/gauzy/node_modules
-    ports:
-      - '4200:${UI_PORT:-4200}'
+    #ports:
+    #  - '4200:${UI_PORT:-4200}'
     networks:
       - overlay
